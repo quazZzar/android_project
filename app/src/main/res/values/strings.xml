@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Find me a Pharmacy</string>
+    <string name="main_activity_title">Pharmacies</string>
+    <string name="the_app_name">Find me a Pharmacy</string>
+    <string name="splash_image">splash_image</string>
+    <string name="netbtn">netbtn</string>
+    <string name="setbtn">setbtn</string>
+    <string name="getposition" />
+</resources>
