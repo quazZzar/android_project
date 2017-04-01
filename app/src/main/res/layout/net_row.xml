@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:text="@string/felicia"
+        android:layout_height="wrap_content"
+        android:id="@+id/net_name_tv"
+        android:textSize="18sp"
+        android:theme="@style/AppTheme"
+        android:textColor="#000"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        tools:ignore="RtlHardcoded,RtlSymmetry"
+        android:layout_width="310dp" />
+
+    <TextView
+        android:text="@string/_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pharms_quantity"
+        android:padding="20dp"
+        android:textSize="18sp"
+        android:textColor="#7f000000"/>
+</LinearLayout>
