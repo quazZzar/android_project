@@ -15,15 +15,20 @@
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        tools:ignore="RtlHardcoded,RtlSymmetry"
-        android:layout_width="310dp" />
+        tools:ignore="InefficientWeight,RtlHardcoded,RtlSymmetry"
+        android:layout_width="wrap_content"
+        android:gravity="left|start"
+        android:paddingRight="20dp"
+        android:layout_weight="0.89" />
 
     <TextView
         android:text="@string/_12"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pharms_quantity"
         android:padding="20dp"
         android:textSize="18sp"
-        android:textColor="#7f000000"/>
+        android:textColor="#7f000000"
+        tools:ignore="RtlHardcoded"
+        android:gravity="right|end" />
 </LinearLayout>

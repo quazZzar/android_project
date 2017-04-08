@@ -8,4 +8,7 @@
     <string name="getposition" />
     <string name="felicia">Felicia</string>
     <string name="_12">12</string>
+    <string name="subsidiary_name">Subsidiary Name</string>
+    <string name="distance">distance</string>
+    <string name="street">street</string>
 </resources>

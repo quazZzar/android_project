@@ -24,7 +24,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/main_activity_title"></activity>
+            android:label="@string/main_activity_title" />
         <activity android:name=".ScreenSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,12 +32,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NetworksListView"
+            android:label="Networks"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".PharmacyListView"
+            android:label="Subsidiaries"
+            android:parentActivityName=".NetworksListView" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCItVVL7EOhRC6_DG7UONImf9nx2oZc0QA" />
 
-        <activity android:name=".NetworksListView" android:label="Networks"></activity>
     </application>
 
 </manifest> <!-- AIzaSyD_wXfwRGRuInfMC6_R0kBbwPLAGGhn9rY -->

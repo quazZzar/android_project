@@ -19,23 +19,14 @@
 
         <TextView
             android:id="@+id/pharmname"
-            android:text="Subsidiary Name"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_weight="1.02"
-            android:textColor="#000"
-            android:layout_width="305dp" />
-
-        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_add_location_black_24dp"
-            android:id="@+id/imageButton"
-            android:layout_weight="8.10"
-            android:background="?android:attr/windowBackground"
-            android:padding="5dp"
-            android:layout_marginLeft="15dp"
-            android:paddingBottom="0dp" />
+            android:layout_weight="1.02"
+            android:text="@string/subsidiary_name"
+            android:textColor="#000"
+            android:textSize="18sp"
+            tools:ignore="InefficientWeight" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -43,13 +34,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="3dp">
         <TextView
-            android:text="street"
+            android:text="@string/street"
             android:layout_width="296dp"
             android:layout_height="wrap_content"
             android:id="@+id/pharmstreet" />
 
         <TextView
-            android:text="distance"
+            android:text="@string/distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/pharmdistance" />

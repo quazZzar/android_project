@@ -23,20 +23,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class NetworksListView extends Activity {
+public class PharmacyListView extends Activity {
     String JSON_STRING;
-    ListView netListView;
-    ArrayList<Network> arrayList;
+    ListView pharmListView;
+    ArrayList<Pharmacy> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_networks_list_view);
+        setContentView(R.layout.activity_pharmacy_list_view);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
         this.getActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setTitleTextColor(ContextCompat.getColor(NetworksListView.this, R.color.textColorPrimary));
+        toolbar.setTitleTextColor(ContextCompat.getColor(PharmacyListView.this, R.color.textColorPrimary));
         this.getActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView the_activity_title = (TextView) findViewById(R.id.the_activity_title);
@@ -45,7 +45,7 @@ public class NetworksListView extends Activity {
         the_activity_title.setTypeface(custom_font);
 
         arrayList = new ArrayList<>();
-        netListView = (ListView) findViewById(R.id.netListView);
+        pharmListView = (ListView) findViewById(R.id.pharmListView);
 
         getJSON();
     }
@@ -57,7 +57,7 @@ public class NetworksListView extends Activity {
     class BackgroundTask extends AsyncTask<Void, Void, String> {
         private static final int STYLE_SPINNER = 0;
         String json_url;
-        ProgressDialog progressdialog = new ProgressDialog(NetworksListView.this);
+        ProgressDialog progressdialog = new ProgressDialog(PharmacyListView.this);
 
         public BackgroundTask(String json_url) {
             this.json_url = json_url;
@@ -110,21 +110,31 @@ public class NetworksListView extends Activity {
                 for(int i = 0; i < the_json_from_net.length(); i++)
                 {
                     JSONObject obj = the_json_from_net.getJSONObject(i);
-                    arrayList.add(new Network(
-                            obj.getInt("net_id"),
-                            obj.getString("net_name"),
-                            obj.getString("net_label"),
-                            obj.getInt("net_pharms")
+                    arrayList.add(new Pharmacy(
+                            obj.getInt("phar_id"),
+                            obj.getString("phar_name"),
+                            obj.getString("street"),
+                            obj.getDouble("latitude"),
+                            obj.getDouble("longitude"),
+                            obj.getString("phone"),
+                            obj.getString("email"),
+                            obj.getString("website"),
+                            obj.getString("opening_at"),
+                            obj.getString("closing_at")
                     ));
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            CustomListAdapter customListAdapter = new CustomListAdapter(getApplicationContext(), R.layout.net_row, arrayList);
-            netListView.setAdapter(customListAdapter);
+            PharmListAdapter pharmListAdapter = new PharmListAdapter(getApplicationContext(), R.layout.pharm_row, arrayList);
+            pharmListView.setAdapter(pharmListAdapter);
             progressdialog.dismiss();
 
         }
     }
+
+
+
+
 }
