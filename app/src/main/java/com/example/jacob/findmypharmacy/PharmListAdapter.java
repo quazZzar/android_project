@@ -45,8 +45,8 @@ public class PharmListAdapter extends ArrayAdapter<Pharmacy> {
 
         Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(), "fonts/RobotoSlab-Regular.ttf");
         pharmname.setTypeface(custom_font);
-        pharmstreet.setTypeface(custom_font);
-        pharmdistance.setTypeface(custom_font);
+        //pharmstreet.setTypeface(custom_font);
+        //pharmdistance.setTypeface(custom_font);
 
         return convertView;
     }

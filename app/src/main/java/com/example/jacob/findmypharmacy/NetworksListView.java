@@ -2,10 +2,14 @@ package com.example.jacob.findmypharmacy;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -27,6 +31,7 @@ public class NetworksListView extends Activity {
     String JSON_STRING;
     ListView netListView;
     ArrayList<Network> arrayList;
+    public static final String EXTRA_MESSAGE = "com.example.jacob.findmypharmacy";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,8 @@ public class NetworksListView extends Activity {
 
         @Override
         protected void onPreExecute() {
-            progressdialog.setMessage("Please Wait....");
+            progressdialog.setTitle("Fetching info");
+            progressdialog.setMessage("Please Wait ...");
             progressdialog.setProgressStyle(STYLE_SPINNER);
             progressdialog.show();
         }
@@ -125,6 +131,22 @@ public class NetworksListView extends Activity {
             netListView.setAdapter(customListAdapter);
             progressdialog.dismiss();
 
+            netListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Network clicked_network = (Network) adapterView.getItemAtPosition(position);
+                    String slug = clicked_network.getNet_name();
+                    //Toast.makeText(NetworksListView.this, slug, Toast.LENGTH_SHORT).show();
+                    getTheRightPharmacies(slug);
+                }
+            });
+
         }
     }
+    public void getTheRightPharmacies(String data) {
+        Intent intent = new Intent(this, PharmacyListView.class);
+        intent.putExtra(EXTRA_MESSAGE, data);
+        startActivity(intent);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.jacob.findmypharmacy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -47,11 +48,13 @@ public class PharmacyListView extends Activity {
         arrayList = new ArrayList<>();
         pharmListView = (ListView) findViewById(R.id.pharmListView);
 
-        getJSON();
+        Intent intent_from_networks_activity = getIntent();
+        String slug = intent_from_networks_activity.getStringExtra(NetworksListView.EXTRA_MESSAGE);
+        getJSON("https://the-cinemax.com/getpharmjson?network="+slug);
     }
 
-    public void getJSON(){
-        new BackgroundTask("https://the-cinemax.com/getjson/").execute();
+    public void getJSON(String link){
+        new BackgroundTask(link).execute();
     }
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
@@ -65,7 +68,8 @@ public class PharmacyListView extends Activity {
 
         @Override
         protected void onPreExecute() {
-            progressdialog.setMessage("Please Wait....");
+            progressdialog.setTitle("Fetching info");
+            progressdialog.setMessage("Please Wait ...");
             progressdialog.setProgressStyle(STYLE_SPINNER);
             progressdialog.show();
         }
