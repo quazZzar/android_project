@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -28,13 +30,14 @@ public class PharmacyListView extends Activity {
     String JSON_STRING;
     ListView pharmListView;
     ArrayList<Pharmacy> arrayList;
+    public static final String EXTRA_ARRAYLIST = "PharmsArrayList";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pharmacy_list_view);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.pharmacy_lv_toolbar);
         setActionBar(toolbar);
         this.getActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(ContextCompat.getColor(PharmacyListView.this, R.color.textColorPrimary));
@@ -56,6 +59,7 @@ public class PharmacyListView extends Activity {
     public void getJSON(String link){
         new BackgroundTask(link).execute();
     }
+
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
         private static final int STYLE_SPINNER = 0;
@@ -134,8 +138,35 @@ public class PharmacyListView extends Activity {
             PharmListAdapter pharmListAdapter = new PharmListAdapter(getApplicationContext(), R.layout.pharm_row, arrayList);
             pharmListView.setAdapter(pharmListAdapter);
             progressdialog.dismiss();
-
+            pharmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                    Pharmacy clicked_pharmacy = (Pharmacy) parent.getItemAtPosition(position);
+                    ArrayList<Pharmacy> singlePin = new ArrayList<>();
+                    singlePin.add(clicked_pharmacy);
+                    sendAPharmacyToMap(singlePin);
+                }
+            });
         }
+    }
+    public void sendAPharmacyToMap(ArrayList<Pharmacy> pharmArrayList) {
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_ARRAYLIST, pharmArrayList);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void sendPharmaciesToMap(ArrayList<Pharmacy> pharmArrayList) {
+        Intent intent1 = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_ARRAYLIST, pharmArrayList);
+        intent1.putExtras(bundle);
+        startActivity(intent1);
+    }
+
+    public void sendBunledArList(View view) {
+        sendPharmaciesToMap(arrayList);
     }
 
 

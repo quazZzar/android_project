@@ -11,4 +11,5 @@
     <string name="subsidiary_name">Subsidiary Name</string>
     <string name="distance">distance</string>
     <string name="street">street</string>
+    <string name="buttontoaddpins">buttontoaddpins</string>
 </resources>

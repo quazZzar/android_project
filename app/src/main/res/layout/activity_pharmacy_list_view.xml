@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.jacob.findmypharmacy.PharmacyListView">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar"
+    <include layout="@layout/pharmacy_lv_toolbar"
+        android:id="@+id/pharmacy_lv_toolbar"
         style="@style/AppTheme" />
 
     <ListView
@@ -15,6 +15,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:id="@+id/pharmListView"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/pharmacy_lv_toolbar" />
 
 </RelativeLayout>

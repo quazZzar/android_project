@@ -1,6 +1,8 @@
 package com.example.jacob.findmypharmacy;
 
-public class Pharmacy {
+import java.io.Serializable;
+
+public class Pharmacy implements Serializable{
     private int phar_id;
     private String phar_name;
     private String street;

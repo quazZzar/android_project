@@ -16,12 +16,12 @@ import java.util.ArrayList;
  * Created by Jacob on 26.03.2017.
  */
 
-public class CustomListAdapter extends ArrayAdapter<Network>{
+public class NetworkListAdapter extends ArrayAdapter<Network>{
     ArrayList<Network> networks;
     Context context;
     int resource;
 
-    public CustomListAdapter(Context context, int resource, ArrayList<Network> networks) {
+    public NetworkListAdapter(Context context, int resource, ArrayList<Network> networks) {
         super(context, resource, networks);
         this.context = context;
         this.resource = resource;

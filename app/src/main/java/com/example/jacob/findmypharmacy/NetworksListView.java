@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -127,8 +126,8 @@ public class NetworksListView extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            CustomListAdapter customListAdapter = new CustomListAdapter(getApplicationContext(), R.layout.net_row, arrayList);
-            netListView.setAdapter(customListAdapter);
+            NetworkListAdapter networkListAdapter = new NetworkListAdapter(getApplicationContext(), R.layout.net_row, arrayList);
+            netListView.setAdapter(networkListAdapter);
             progressdialog.dismiss();
 
             netListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

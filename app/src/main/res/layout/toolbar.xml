@@ -9,8 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/the_activity_title"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignParentStart="true"
+
         android:textColor="#FFF"
         android:textAllCaps="false"
         android:textSize="18sp" />

@@ -22,13 +22,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements OnMapReadyCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private GoogleMap mMap;
+    private ArrayList<Pharmacy> arrayListFromPhLV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
         setActionBar(toolbar);
         this.getActionBar().setDisplayShowTitleEnabled(false);
 
-
         TextView the_activity_title = (TextView) findViewById(R.id.the_activity_title);
         the_activity_title.setText(this.getTitle());
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/RobotoSlab-Bold.ttf");
@@ -48,6 +48,10 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
         MapFragment googleMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         googleMap.getMapAsync(this);
 
+        Bundle arrayPharmLV = getIntent().getExtras();
+        if(arrayPharmLV != null){
+            arrayListFromPhLV = (ArrayList<Pharmacy>) arrayPharmLV.getSerializable(PharmacyListView.EXTRA_ARRAYLIST);
+        }
     }
 
     @Override
@@ -73,16 +77,18 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
-        LatLng sydney = new LatLng(47.0703296, 28.5599477);
-
-
-        mMap.addMarker(new MarkerOptions()
-                .title("Chisinau")
-                .snippet("Welcome to Chisinau")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_pin))
-                .position(sydney));
+        if (arrayListFromPhLV != null) {
+            for (int i = 0; i < arrayListFromPhLV.size(); i++) {
+                Pharmacy selected = arrayListFromPhLV.get(i);
+                LatLng clicked_pharmacy = new LatLng(selected.getLatitude(), selected.getLongitude());
+                mMap.addMarker(new MarkerOptions()
+                        .title(selected.getPhar_name())
+                        .snippet(selected.getStreet())
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_pin))
+                        .position(clicked_pharmacy));
+            }
+        }
     }
-
 
     // Bottom bar buttons
     public void getNetworksList(View view) {
