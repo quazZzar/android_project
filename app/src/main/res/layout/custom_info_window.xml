@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="50dp"
+    android:paddingTop="10dp"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/pin_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:paddingBottom="15dp"
+        android:text="@string/textview"
+        android:textColor="#000"
+        android:textSize="18sp"
+        tools:text="TITLE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pin_street"
+            android:src="@drawable/pin_street"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/pin_street"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="@string/pin_street"
+            android:textColor="#90000000"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pin_street"
+            android:src="@drawable/pin_time"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/pin_opening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.01"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="@string/_00_00"
+            android:textColor="#90000000"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/pin_dash"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="-"
+            android:textColor="#90000000"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+
+        <TextView
+            android:id="@+id/pin_closing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="@string/_00_00"
+            android:textColor="#90000000"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pin_phone"
+            android:src="@drawable/pin_phone" />
+
+        <TextView
+            android:id="@+id/pin_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="@string/pin_phone"
+            android:textColor="#90000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pin_"
+            android:src="@drawable/pin_email" />
+
+        <TextView
+            android:id="@+id/pin_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03"
+            android:elevation="1dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="@string/pin_em"
+            android:textColor="#90000000"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pin_em"
+            android:src="@drawable/pin_website" />
+
+        <TextView
+            android:id="@+id/pin_website"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="@string/pin_"
+            android:textColor="#90000000" />
+
+    </LinearLayout>
+</LinearLayout>
