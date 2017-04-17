@@ -13,8 +13,9 @@ public class Pharmacy implements Serializable{
     private String website;
     private String opening_at;
     private String closing_at;
+    private String distance;
 
-    public Pharmacy(int phar_id, String phar_name, String street, double latitude, double longitude, String phone, String email, String website, String opening_at, String closing_at) {
+    public Pharmacy(int phar_id, String phar_name, String street, double latitude, double longitude, String phone, String email, String website, String opening_at, String closing_at, String distance) {
         this.phar_id = phar_id;
         this.phar_name = phar_name;
         this.street = street;
@@ -25,6 +26,7 @@ public class Pharmacy implements Serializable{
         this.website = website;
         this.opening_at = opening_at;
         this.closing_at = closing_at;
+        this.distance = distance;
     }
 
     public int getPhar_id() {
@@ -66,4 +68,6 @@ public class Pharmacy implements Serializable{
     public String getClosing_at() {
         return closing_at;
     }
+
+    public String getDistance() { return distance; }
 }

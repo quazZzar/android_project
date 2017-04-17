@@ -35,7 +35,7 @@
         android:paddingTop="3dp">
         <TextView
             android:text="@string/street"
-            android:layout_width="296dp"
+            android:layout_width="271dp"
             android:layout_height="wrap_content"
             android:id="@+id/pharmstreet" />
 

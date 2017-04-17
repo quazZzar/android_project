@@ -3,15 +3,24 @@ package com.example.jacob.findmypharmacy;
 import android.app.Activity;
 import android.content.Intent;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +35,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class PharmacyListView extends Activity {
+public class PharmacyListView extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     String JSON_STRING;
     ListView pharmListView;
     ArrayList<Pharmacy> arrayList;
     public static final String EXTRA_ARRAYLIST = "PharmsArrayList";
+    String slug;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +60,61 @@ public class PharmacyListView extends Activity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/RobotoSlab-Bold.ttf");
         the_activity_title.setTypeface(custom_font);
 
-        arrayList = new ArrayList<>();
+        //arrayList = new ArrayList<>();
         pharmListView = (ListView) findViewById(R.id.pharmListView);
 
         Intent intent_from_networks_activity = getIntent();
-        String slug = intent_from_networks_activity.getStringExtra(NetworksListView.EXTRA_MESSAGE);
-        getJSON("https://the-cinemax.com/getpharmjson?network="+slug);
+        slug = intent_from_networks_activity.getStringExtra(NetworksListView.EXTRA_MESSAGE);
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
     }
 
-    public void getJSON(String link){
+    public void getJSON(String link) {
         new BackgroundTask(link).execute();
     }
+
+
+    //////////// Getting the current location
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling.
+            return;
+        }
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        arrayList = new ArrayList<>();
+        getJSON("https://findmeapharmacy.000webhostapp.com/getpharmacies?network=" + slug + "&latitude=" + mLastLocation.getLatitude() + "&longitude=" + mLastLocation.getLongitude());
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    /////////////////////////////////////////////////
+
 
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
@@ -128,7 +184,8 @@ public class PharmacyListView extends Activity {
                             obj.getString("email"),
                             obj.getString("website"),
                             obj.getString("opening_at"),
-                            obj.getString("closing_at")
+                            obj.getString("closing_at"),
+                            obj.getString("distance")
                     ));
                 }
 

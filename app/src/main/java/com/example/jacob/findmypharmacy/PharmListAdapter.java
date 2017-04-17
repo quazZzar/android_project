@@ -41,7 +41,8 @@ public class PharmListAdapter extends ArrayAdapter<Pharmacy> {
         pharmstreet.setText(pharmacy.getStreet());
 
         TextView pharmdistance = (TextView) convertView.findViewById(R.id.pharmdistance);
-        pharmdistance.setText("20m"); // de calculat distanta pe viitor.
+
+        pharmdistance.setText(pharmacy.getDistance()); // de calculat distanta pe viitor.
 
         Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(), "fonts/RobotoSlab-Regular.ttf");
         pharmname.setTypeface(custom_font);
@@ -50,4 +51,7 @@ public class PharmListAdapter extends ArrayAdapter<Pharmacy> {
 
         return convertView;
     }
+
+
+
 }

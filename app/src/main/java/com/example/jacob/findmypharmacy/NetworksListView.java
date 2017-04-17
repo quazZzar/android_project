@@ -55,7 +55,7 @@ public class NetworksListView extends Activity {
     }
 
     public void getJSON(){
-        new BackgroundTask("https://the-cinemax.com/getjson/").execute();
+        new BackgroundTask("https://findmeapharmacy.000webhostapp.com/getnetworks").execute();
     }
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
