@@ -1,7 +1,10 @@
 package com.example.jacob.findmypharmacy;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -12,7 +15,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -45,6 +51,12 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
     private Location mLastLocation;
     private LatLng currentLocation;
     private ImageButton getPosBtn;
+    private ImageButton settingsBtn;
+    private View dialogView;
+    private RadioButton map_rb;
+    private RadioGroup map_rg;
+    private RadioGroup lang_rg;
+    private RadioButton lang_rb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +87,82 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                     .addApi(LocationServices.API)
                     .build();
         }
-    }
+        settingsBtn = (ImageButton) findViewById(R.id.settingsBtn);
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder settingsDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                dialogView = getLayoutInflater().inflate(R.layout.settings_dialog, null);
+                map_rg = (RadioGroup) dialogView.findViewById(R.id.map_type_rg);
+                lang_rg = (RadioGroup) dialogView.findViewById(R.id.lang_rg);
+
+                //getting the user's saved choice for the map settings
+                SharedPreferences saved_sett = getSharedPreferences("UserSettings", 0);
+                int checked_map_option = saved_sett.getInt("MapType", 0);
+                //checking for null settings
+                if(checked_map_option != 0){
+                    RadioButton the_checked_map = (RadioButton) dialogView.findViewById(checked_map_option);
+                    the_checked_map.setChecked(true);
+                }
+
+                int checked_lang_option = saved_sett.getInt("Language", 0);
+                if(checked_lang_option != 0){
+                    RadioButton the_checked_lang = (RadioButton) dialogView.findViewById(checked_lang_option);
+                    the_checked_lang.setChecked(true);
+                }
+                settingsDialogBuilder.setView(dialogView);
+                settingsDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(getBaseContext(),"Nothing changed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                settingsDialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        map_rb = (RadioButton) dialogView.findViewById(map_rg.getCheckedRadioButtonId());
+                        lang_rb = (RadioButton) dialogView.findViewById(lang_rg.getCheckedRadioButtonId());
+
+                        SharedPreferences settings = getSharedPreferences("UserSettings", 0);
+                        SharedPreferences.Editor editor = settings.edit();
+
+                        // if the current changes are equal to previous display a propper message
+                        if(settings.getInt("MapType", 0) == map_rb.getId() && settings.getInt("Language", 0) == lang_rb.getId()) {
+                            Toast.makeText(getBaseContext(),"Nothing changed", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // if current changes aren't equal to previous then save them
+                        if(settings.getInt("MapType", 0) != map_rb.getId()){
+                            editor.putInt("MapType", map_rb.getId());
+                            editor.putString("MapTypeString", map_rb.getText().toString());
+                            editor.apply();
+                            //setting the map type right now.
+                            if(settings.getString("MapTypeString", "").equals("Terrain")){
+                                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                            }
+                            else if(settings.getString("MapTypeString", "").equals("Normal")){
+                                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                            }
+                            else if(settings.getString("MapTypeString", "").equals("Hybrid")){
+                                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                            }
+                            else{
+                                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                            }
+                        }
+
+                        // if current changes aren't equal to previous then save them
+                        if(settings.getInt("Language", 0) != lang_rb.getId()) {
+                            editor.putInt("Language", lang_rb.getId());
+                            editor.putString("LangString", lang_rb.getText().toString());
+                            editor.apply();
+                        }
+                        Toast.makeText(getBaseContext(),"Saved", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                AlertDialog dialog = settingsDialogBuilder.create();
+                dialog.show();
+            }
+        });
+     }
 
     protected void onStart() {
         mGoogleApiClient.connect();
@@ -143,6 +230,7 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                     TextView pin_phone = (TextView) info_window.findViewById(R.id.pin_phone);
                     TextView pin_email = (TextView) info_window.findViewById(R.id.pin_email);
                     TextView pin_website = (TextView) info_window.findViewById(R.id.pin_website);
+                    TextView pin_distance = (TextView) info_window.findViewById(R.id.pin_distance);
 
                     pin_title.setText(marker.getTitle());
                     try {
@@ -152,6 +240,7 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                         pin_phone.setText(mainObject.getString("pin_phone"));
                         pin_email.setText(mainObject.getString("pin_email"));
                         pin_website.setText(mainObject.getString("pin_website"));
+                        pin_distance.setText(mainObject.getString("pin_distance"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -200,6 +289,7 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                     jsonPinSnippet.put("pin_website", selected.getWebsite());
                     jsonPinSnippet.put("pin_open", selected.getOpening_at());
                     jsonPinSnippet.put("pin_close", selected.getClosing_at());
+                    jsonPinSnippet.put("pin_distance", selected.getDistance());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -211,6 +301,20 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_pin))
                         .position(clicked_pharmacy));
             }
+        }
+        //getting the user's saved choice for the map settings at the app start
+        SharedPreferences saved_sett = getSharedPreferences("UserSettings", 0);
+        if(saved_sett.getString("MapTypeString", "").equals("Terrain")){
+            mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        }
+        else if(saved_sett.getString("MapTypeString", "").equals("Normal")){
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
+        else if(saved_sett.getString("MapTypeString", "").equals("Hybrid")){
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }
+        else{
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
     }
 

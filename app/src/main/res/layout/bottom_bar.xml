@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rippler"
         android:src="@drawable/settings"
-        android:id="@+id/settings"
+        android:id="@+id/settingsBtn"
         android:contentDescription="@string/setbtn"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"

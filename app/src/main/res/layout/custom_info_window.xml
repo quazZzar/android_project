@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="10dp"
     android:paddingLeft="20dp"
-    android:paddingRight="50dp"
+    android:paddingRight="10dp"
     android:paddingTop="10dp"
     android:weightSum="1">
 
@@ -38,13 +38,23 @@
             android:id="@+id/pin_street"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.03"
+            android:layout_weight="0.02"
             android:paddingBottom="4dp"
             android:paddingLeft="8dp"
             android:paddingTop="3dp"
             android:text="@string/pin_street"
             android:textColor="#90000000"
             tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/pin_distance"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.00"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="3dp"
+            android:text="~km" />
 
     </LinearLayout>
 
