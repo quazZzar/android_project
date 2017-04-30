@@ -34,12 +34,12 @@
         </activity>
         <activity
             android:name=".NetworksListView"
-            android:label="Networks"
+            android:label="@string/Retele"
             android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".PharmacyListView"
-            android:label="Subsidiaries"
+            android:label="@string/subsidiaries"
             android:parentActivityName=".NetworksListView" />
 
         <meta-data

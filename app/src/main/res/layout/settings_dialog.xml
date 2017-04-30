@@ -14,7 +14,7 @@
         android:gravity="center"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="SETTINGS"
+        android:text="@string/settings"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginBottom="10dp"
-            android:text="Choose the map Type"
+            android:text="@string/choose_the_map_type"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -55,19 +55,19 @@
                 android:id="@+id/map_normal_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Normal" />
+                android:text="@string/normal" />
 
             <RadioButton
                 android:id="@+id/map_terrain_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Terrain" />
+                android:text="@string/terrain" />
 
             <RadioButton
                 android:id="@+id/map_hybrid_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hybrid" />
+                android:text="@string/hybrid" />
 
         </RadioGroup>
     </LinearLayout>
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginBottom="10dp"
-            android:text="Language"
+            android:text="@string/language"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -100,19 +100,19 @@
                 android:id="@+id/lang_romanian_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Romanian" />
-
-            <RadioButton
-                android:id="@+id/lang_russian_rb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Russian" />
+                android:text="@string/romanian" />
 
             <RadioButton
                 android:id="@+id/lang_english_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="English" />
+                android:text="@string/english" />
+
+            <RadioButton
+                android:id="@+id/lang_russian_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/russian" />
 
         </RadioGroup>
     </LinearLayout>

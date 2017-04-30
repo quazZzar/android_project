@@ -53,7 +53,7 @@ public class PharmacyListView extends Activity implements GoogleApiClient.Connec
         setActionBar(toolbar);
         this.getActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitleTextColor(ContextCompat.getColor(PharmacyListView.this, R.color.textColorPrimary));
-        this.getActionBar().setDisplayHomeAsUpEnabled(true);
+        //this.getActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView the_activity_title = (TextView) findViewById(R.id.the_activity_title);
         the_activity_title.setText(this.getTitle());
@@ -128,7 +128,7 @@ public class PharmacyListView extends Activity implements GoogleApiClient.Connec
 
         @Override
         protected void onPreExecute() {
-            progressdialog.setTitle("Fetching info");
+            progressdialog.setTitle(R.string.fetching_info);
             progressdialog.setMessage("Please Wait ...");
             progressdialog.setProgressStyle(STYLE_SPINNER);
             progressdialog.show();

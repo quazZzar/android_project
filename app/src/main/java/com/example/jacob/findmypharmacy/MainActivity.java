@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -40,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class MainActivity extends Activity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -58,8 +60,10 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
     private RadioGroup lang_rg;
     private RadioButton lang_rb;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -68,10 +72,9 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
         this.getActionBar().setDisplayShowTitleEnabled(false);
 
         TextView the_activity_title = (TextView) findViewById(R.id.the_activity_title);
-        the_activity_title.setText(this.getTitle());
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/RobotoSlab-Bold.ttf");
         the_activity_title.setTypeface(custom_font);
-
+        the_activity_title.setText(this.getTitle());
         MapFragment googleMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         googleMap.getMapAsync(this);
 
@@ -111,12 +114,12 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                     the_checked_lang.setChecked(true);
                 }
                 settingsDialogBuilder.setView(dialogView);
-                settingsDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                settingsDialogBuilder.setNegativeButton(R.string.dialog_negative, new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getBaseContext(),"Nothing changed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), R.string.nothing_changed, Toast.LENGTH_SHORT).show();
                     }
                 });
-                settingsDialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener(){
+                settingsDialogBuilder.setPositiveButton(R.string.dialog_positive, new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id) {
                         map_rb = (RadioButton) dialogView.findViewById(map_rg.getCheckedRadioButtonId());
                         lang_rb = (RadioButton) dialogView.findViewById(lang_rg.getCheckedRadioButtonId());
@@ -126,7 +129,7 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
 
                         // if the current changes are equal to previous display a propper message
                         if(settings.getInt("MapType", 0) == map_rb.getId() && settings.getInt("Language", 0) == lang_rb.getId()) {
-                            Toast.makeText(getBaseContext(),"Nothing changed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), R.string.nothing_changed, Toast.LENGTH_SHORT).show();
                         }
 
                         // if current changes aren't equal to previous then save them
@@ -135,13 +138,13 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                             editor.putString("MapTypeString", map_rb.getText().toString());
                             editor.apply();
                             //setting the map type right now.
-                            if(settings.getString("MapTypeString", "").equals("Terrain")){
+                            if(settings.getString("MapTypeString", "").equals("Terrain") || settings.getString("MapTypeString", "").equals("Teren")|| settings.getString("MapTypeString", "").equals("Земеля")){
                                 mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
                             }
-                            else if(settings.getString("MapTypeString", "").equals("Normal")){
+                            else if(settings.getString("MapTypeString", "").equals("Normal") || settings.getString("MapTypeString", "").equals("Обычьная")){
                                 mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                             }
-                            else if(settings.getString("MapTypeString", "").equals("Hybrid")){
+                            else if(settings.getString("MapTypeString", "").equals("Hybrid") || settings.getString("MapTypeString", "").equals("Hibrid") || settings.getString("MapTypeString", "").equals("Гибрид")){
                                 mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                             }
                             else{
@@ -154,14 +157,53 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                             editor.putInt("Language", lang_rb.getId());
                             editor.putString("LangString", lang_rb.getText().toString());
                             editor.apply();
+                            if(settings.getString("LangString", "").equals("Romanian")){
+                                String languageToLoad = "ro"; // your language
+                                Locale locale = new Locale(languageToLoad);
+                                Locale.setDefault(locale);
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+                                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                                //refresh to make the changes
+                                Intent refresh = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+                                refresh.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                refresh.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(refresh);
+                                finish();
+                            }
+                            if(settings.getString("LangString", "").equals("English")){
+                                String languageToLoad = "en"; // your language
+                                Locale locale = new Locale(languageToLoad);
+                                Locale.setDefault(locale);
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+                                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                                //refresh to make the changes
+                                Intent refresh = new Intent(MainActivity.this, ScreenSplash.class);
+                                startActivity(refresh);
+                                finish();
+                            }
+                            if(settings.getString("LangString", "").equals("Russian")){
+                                String languageToLoad = "ru"; // your language
+                                Locale locale = new Locale(languageToLoad);
+                                Locale.setDefault(locale);
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+                                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                                //refresh to make the changes
+                                Intent refresh = new Intent(MainActivity.this, ScreenSplash.class);
+                                startActivity(refresh);
+                                finish();
+                            }
                         }
-                        Toast.makeText(getBaseContext(),"Saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), R.string.dialog_saved, Toast.LENGTH_SHORT).show();
                     }
                 });
                 AlertDialog dialog = settingsDialogBuilder.create();
                 dialog.show();
             }
         });
+
      }
 
     protected void onStart() {
@@ -304,13 +346,13 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
         }
         //getting the user's saved choice for the map settings at the app start
         SharedPreferences saved_sett = getSharedPreferences("UserSettings", 0);
-        if(saved_sett.getString("MapTypeString", "").equals("Terrain")){
+        if(saved_sett.getString("MapTypeString", "").equals("Terrain") || saved_sett.getString("MapTypeString", "").equals("Teren") || saved_sett.getString("MapTypeString", "").equals("Земеля")){
             mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         }
-        else if(saved_sett.getString("MapTypeString", "").equals("Normal")){
+        else if(saved_sett.getString("MapTypeString", "").equals("Normal") || saved_sett.getString("MapTypeString", "").equals("Обычьная")){
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
-        else if(saved_sett.getString("MapTypeString", "").equals("Hybrid")){
+        else if(saved_sett.getString("MapTypeString", "").equals("Hybrid") || saved_sett.getString("MapTypeString", "").equals("Hibrid") || saved_sett.getString("MapTypeString", "").equals("Гибрид")){
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         }
         else{
