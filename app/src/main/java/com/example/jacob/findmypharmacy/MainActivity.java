@@ -204,7 +204,7 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
             }
         });
 
-     }
+    }
 
     protected void onStart() {
         mGoogleApiClient.connect();

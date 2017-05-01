@@ -34,6 +34,4 @@
     <string name="dialog_negative">Cancel</string>
     <string name="dialog_positive">Save</string>
     <string name="fetching_info">Fetching info</string>
-
-
 </resources>
