@@ -195,6 +195,18 @@ public class MainActivity extends Activity implements OnMapReadyCallback, Google
                                 startActivity(refresh);
                                 finish();
                             }
+                            if(settings.getString("LangString", "").equals("Francais")){
+                                String languageToLoad = "fr"; // your language
+                                Locale locale = new Locale(languageToLoad);
+                                Locale.setDefault(locale);
+                                Configuration config = new Configuration();
+                                config.locale = locale;
+                                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                                //refresh to make the changes
+                                Intent refresh = new Intent(MainActivity.this, ScreenSplash.class);
+                                startActivity(refresh);
+                                finish();
+                            }
                         }
                         Toast.makeText(getBaseContext(), R.string.dialog_saved, Toast.LENGTH_SHORT).show();
                     }

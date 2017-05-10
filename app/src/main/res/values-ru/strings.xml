@@ -36,4 +36,5 @@
     <string name="dialog_negative">Отмена</string>
     <string name="dialog_positive">Сохранить</string>
     <string name="fetching_info">Сборка информации</string>
+    <string name="francais">Francais</string>
 </resources>

@@ -27,6 +27,9 @@ public class ScreenSplash extends Activity {
         else if(saved_sett.getString("LangString", "").equals("Russian")){
             languageToLoad = "ru"; // your language
         }
+        else if(saved_sett.getString("LangString", "").equals("Francais")){
+            languageToLoad = "fr"; // your language
+        }
         else if(saved_sett.getString("LangString", "").equals("English")){
             languageToLoad = "en"; // your language
 
