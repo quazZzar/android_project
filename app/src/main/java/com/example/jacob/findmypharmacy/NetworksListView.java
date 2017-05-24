@@ -55,7 +55,7 @@ public class NetworksListView extends Activity {
     }
 
     public void getJSON(){
-        new BackgroundTask("https://findmeapharmacy.000webhostapp.com/getnetworks").execute();
+        new BackgroundTask(" https://the-cinemax.com/pharmacies/getnetworks/").execute();
     }
 
     class BackgroundTask extends AsyncTask<Void, Void, String> {
@@ -80,6 +80,8 @@ public class NetworksListView extends Activity {
             try {
                 URL url = new URL(json_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setDefaultUseCaches(false);
+                httpURLConnection.setUseCaches(false);
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder stringBuilder = new StringBuilder();

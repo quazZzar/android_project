@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jacob.findmypharmacy">
-
+    <!--L'autorisation pour Internet et Location.-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
+    <!--L'autorisation de recevoir et de rendre Google Map-->
     <permission
         android:name="com.example.jacob.findmypharmacy.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-
+    <!--Déclaration des composants de l'application-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/the_app_logo"
@@ -21,10 +21,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
+        <!--La déclaration des activités-->
         <activity
             android:name=".MainActivity"
             android:label="@string/main_activity_title" />
+        <!--L'activité du point d'entrée-->
         <activity android:name=".ScreenSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,11 +42,11 @@
             android:name=".PharmacyListView"
             android:label="@string/subsidiaries"
             android:parentActivityName=".NetworksListView" />
-
+        <!--La déclaration de la clé pour Google Services API-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCItVVL7EOhRC6_DG7UONImf9nx2oZc0QA" />
 
     </application>
 
-</manifest> <!-- AIzaSyD_wXfwRGRuInfMC6_R0kBbwPLAGGhn9rY -->
+</manifest>

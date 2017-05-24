@@ -101,7 +101,7 @@ public class PharmacyListView extends Activity implements GoogleApiClient.Connec
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         arrayList = new ArrayList<>();
-        getJSON("https://findmeapharmacy.000webhostapp.com/getpharmacies?network=" + slug + "&latitude=" + mLastLocation.getLatitude() + "&longitude=" + mLastLocation.getLongitude());
+        getJSON(" https://the-cinemax.com/pharmacies/getpharmacies/?network=" + slug + "&latitude=" + mLastLocation.getLatitude() + "&longitude=" + mLastLocation.getLongitude());
     }
 
     @Override
